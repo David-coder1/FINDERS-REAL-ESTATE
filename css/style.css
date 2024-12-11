@@ -102,6 +102,20 @@ hr {
   color: #ce2a36 !important;
   background-color: transparent;
 }
+#menu.navbar-default .navbar-nav .admin-1 {
+  color: #ce2a36;
+  margin-left: 0px;
+  padding: 10px;
+  width: 120px;
+  text-align: center;
+  border: black 5px solid;
+  border-radius: 10px;
+  margin-top: -17px;
+}
+#menu.navbar-default .navbar-nav .admin-1:hover {
+  color: #1f386e;
+  background-color: #dedede;
+}
 #menu .phone {
   font-family: "Montserrat", sans-serif;
   margin: 4px 0 0 120px;
@@ -535,10 +549,14 @@ label {
   display: flex;
 
   font-family: Arial, sans-serif;
-  padding: 50px;
-  width: 900px;
-  margin: 10% auto;
+  padding: 90px;
+
   height: 50%;
+}
+
+.login-img {
+  margin-right: 300px;
+  margin-left: 30%;
 }
 .login-form {
   color: #d50a0a;
@@ -550,14 +568,38 @@ label {
 }
 .login-form h2 {
   color: #ffffff;
-  margin: 90px 50px;
+  margin: 40px 50px;
   padding: 40px;
 }
 
 .inputs {
   display: block;
   margin: -150px 50px;
-  padding: 30px 30px;
+  padding: 90px 30px;
+}
+.login-btn {
+  font-size: 15px;
+  margin-left: 0px;
+  padding: 10px;
+  width: 120px;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  margin-top: -17px;
+  background-color: #0d7de5;
+  color: #fafafa;
+  cursor: pointer;
+}
+.login-btn:hover {
+  background-color: #64aaec;
+  color: #fafafa;
+}
+.login-texts {
+  padding: 10%;
+}
+.login-texts h4 {
+  color: #f9f9f9;
+  font-size: 29px;
 }
 #username,
 #password {
