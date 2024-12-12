@@ -342,6 +342,13 @@ header .intro-text {
   overflow: hidden;
   position: relative;
 }
+.property-icon {
+  display: flex;
+  border: 1px rgb(197, 194, 194) solid;
+  padding: 20px 30px;
+  justify-content: space-between;
+  margin-bottom: 90px;
+}
 .hover-bg .hover-text {
   position: absolute;
   text-align: center;
