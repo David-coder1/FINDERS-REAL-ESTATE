@@ -84,3 +84,5 @@ function deleteProperty(index) {
 // Initially render properties on page load
 renderAdminProperties();
 renderPublicProperties();
+
+
