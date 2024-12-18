@@ -27,9 +27,9 @@ body {
 }
 
 .container {
-  max-width: 400px;
+  max-width: 500px;
   margin: 50px auto;
-  padding: 20px;
+  padding: 2 0px;
   background: #fff;
   border-radius: 5px;
 }
