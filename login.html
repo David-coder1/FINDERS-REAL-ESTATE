@@ -49,6 +49,34 @@
         width: 10%;
         border-radius: 5px;
       }
+      .btn-custom {
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #e52f3c;
+        padding: 14px 20px;
+        letter-spacing: 1px;
+        margin: 40px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 4px;
+        transition: all 0.3s;
+        text-decoration: none;
+      }
+      .btn-custom:hover,
+      .btn-custom:focus,
+      .btn-custom.focus,
+      .btn-custom:active,
+      .btn-custom.active {
+        color: #fff;
+        background-color: #1f386e;
+      }
+      .btn:active,
+      .btn.active {
+        background-image: none;
+        outline: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
     </style>
   </head>
   <body>
@@ -114,7 +142,10 @@
 
         <div id="current-properties"></div>
 
-        <button onclick="logout()">Logout</button>
+        <button onclick="logout()">Logout</button
+        ><a href="index.html" class="btn btn-custom btn-lg page-scroll"
+          >Hope Page</a
+        >
       </div>
     </div>
 
