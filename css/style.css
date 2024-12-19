@@ -359,8 +359,8 @@ header .intro-text {
   display: flex;
   border: 1px rgb(197, 194, 194) solid;
   padding: 20px 30px;
+  margin-bottom: 10px;
   justify-content: space-between;
-  margin-bottom: 90px;
 }
 .hover-bg .hover-text {
   position: absolute;
@@ -666,9 +666,36 @@ button {
     height: 100vh !important;
   }
 }
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .gradient-custom-2 {
     border-top-right-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
   }
+}
+
+.featured-properties {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: rgb(238, 236, 240);
+  gap: 40px;
+  margin-top: 20px;
+  margin-bottom: 200px;
+  border-radius: 5px;
+}
+
+.property-card img {
+  width: 360px;
+  height: 400px;
+  padding: 30px 30px;
+}
+.property-grid::before {
+  display: none;
+}
+
+.property-card h3 {
+  display: none;
+}
+
+.property-card p {
+  display: none;
 }

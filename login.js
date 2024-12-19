@@ -1,99 +1,179 @@
-// Handle Sign Up
-document.getElementById("signup-form").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const username = document.getElementById("signup-username").value;
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
+// Utility Functions
+function showSection(sectionId) {
+    document.querySelectorAll(".container > div").forEach((div) => div.classList.add("hidden"));
+    document.getElementById(sectionId).classList.remove("hidden");
+}
 
-    const response = await fetch("/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-    });
+function showCreateAccount() {
+    showSection("create-account-section");
+}
 
-    if (response.ok) {
-        alert("Account created successfully!");
-    } else {
-        alert("Error creating account. Please try again.");
-    }
+function showLogin() {
+    showSection("login-section");
+}
+
+function showForgotPassword() {
+    showSection("forgot-password-section");
+}
+
+function showPostProperty() {
+    showSection("post-property-section");
+    loadGallery();
+}
+
+// Create Account
+document.getElementById("create-account-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    localStorage.setItem("user", JSON.stringify({ username, email, password }));
+    alert("Account created successfully!");
+    showLogin();
 });
 
-// Handle Login
-document.getElementById("login-form").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
-
-    const response = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-    });
-
-    if (response.ok) {
+// Login
+document.getElementById("login-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const loginUsername = document.getElementById("login-username").value.trim();
+    const loginPassword = document.getElementById("login-password").value.trim();
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser && storedUser.username === loginUsername && storedUser.password === loginPassword) {
         alert("Login successful!");
+        showPostProperty();
     } else {
-        alert("Invalid credentials. Please try again.");
+        alert("Invalid username or password!");
     }
 });
 
-
-const express = require("express");
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
-const app = express();
-app.use(express.json());
-const cors = require("cors");
-app.use(cors());
-// Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/user-auth", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-// User Schema
-const userSchema = new mongoose.Schema({
-    username: String,
-    email: { type: String, unique: true },
-    password: String,
-});
-
-const User = mongoose.model("User", userSchema);
-
-// Sign Up Route
-app.post("/api/signup", async (req, res) => {
-    const { username, email, password } = req.body;
-
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, email, password: hashedPassword });
-        await newUser.save();
-        res.status(201).send("User registered!");
-    } catch (error) {
-        res.status(400).send("Error registering user.");
+// Forgot Password
+document.getElementById("forgot-password-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const resetEmail = document.getElementById("reset-email").value.trim();
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser && storedUser.email === resetEmail) {
+        alert("Password reset link sent to your email!");
+    } else {
+        alert("Email not found!");
     }
 });
 
-// Login Route
-app.post("/api/login", async (req, res) => {
-    const { email, password } = req.body;
+// Post Property
+document.getElementById("property-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const propertyImage = document.getElementById("property-image").files[0];
 
-    try {
-        const user = await User.findOne({ email });
-        if (!user) return res.status(404).send("User not found.");
+    const reader = new FileReader();
 
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) return res.status(401).send("Invalid credentials.");
+    reader.onload = () => {
+        const properties = JSON.parse(localStorage.getItem("properties")) || [];
+        properties.push({ image: reader.result, });
+        localStorage.setItem("properties", JSON.stringify(properties));
+        loadGallery();
+        alert("Property posted successfully!");
+    };
 
-        const token = jwt.sign({ id: user._id }, "your_secret_key");
-        res.status(200).json({ token });
-    } catch (error) {
-        res.status(500).send("Login error.");
-    }
+    if (propertyImage) reader.readAsDataURL(propertyImage);
 });
 
-// Start Server
-app.listen(5000, () => console.log("Server running on http://localhost:5000"));
+// Load Gallery (with Edit and Delete buttons)
+function loadGallery() {
+    const gallery = document.getElementById("current-properties");
+    gallery.innerHTML = ""; // Clear the gallery first to prevent duplicates
+    const properties = JSON.parse(localStorage.getItem("properties")) || [];
 
+    properties.forEach((property, index) => {
+        const div = document.createElement("div");
+        div.classList.add("property-item");
+        div.innerHTML = `
+      <div>
+        <img src="${property.image}" alt="Property" style="width: 100px; height: 100px; object-fit: cover;">
+       
+        <button onclick="editProperty(${index})">Edit</button>
+        <button onclick="deleteProperty(${index})">Delete</button>
+      </div>
+    `;
+        gallery.appendChild(div);
+    });
+}
+
+function renderProperties() {
+
+
+
+    // Add event listeners for edit and delete buttons
+    document.querySelectorAll(".edit-btn").forEach((button) => {
+        button.addEventListener("click", (e) => {
+            const index = e.target.getAttribute("data-index");
+            editProperty(index);
+        });
+    });
+
+    document.querySelectorAll(".delete-btn").forEach((button) => {
+        button.addEventListener("click", (e) => {
+            const index = e.target.getAttribute("data-index");
+            deleteProperty(index);
+        });
+    });
+}
+
+
+// Edit Property
+function editProperty(index) {
+    const properties = JSON.parse(localStorage.getItem("properties")) || [];
+    const property = properties[index];
+
+    // Populate the form with the current property data
+    const imageInput = document.getElementById("property-image");
+    c
+
+    // Temporarily store the index for later update
+    localStorage.setItem("editingPropertyIndex", index);
+
+    imageInput.value = ""; // Clear current file input
+    descriptionInput.value = property.description; // Set the description
+    showSection("post-property-section");
+
+    // When the user submits the edit form, update the property
+    document.getElementById("property-form").onsubmit = (e) => {
+        e.preventDefault();
+
+        const newDescription = descriptionInput.value.trim();
+        const newImage = imageInput.files[0];
+
+        if (newDescription || newImage) {
+            const reader = new FileReader();
+            reader.onload = () => {
+
+                properties[index].image = newImage ? reader.result : properties[index].image;
+
+                localStorage.setItem("properties", JSON.stringify(properties));
+                alert("Property updated successfully!");
+                loadGallery();
+            };
+
+            if (newImage) reader.readAsDataURL(newImage);
+            else {
+                properties[index].description = newDescription;
+                localStorage.setItem("properties", JSON.stringify(properties));
+                loadGallery();
+            }
+        } else {
+            alert("Please provide a new description or image.");
+        }
+    };
+}
+
+// Delete Property
+function deleteProperty(index) {
+    const properties = JSON.parse(localStorage.getItem("properties")) || [];
+    properties.splice(index, 1); // Remove the property at the given index
+    localStorage.setItem("properties", JSON.stringify(properties));
+    loadGallery(); // Refresh the gallery
+}
+
+// Logout
+function logout() {
+    alert("Logged out successfully!");
+    showLogin();
+}
