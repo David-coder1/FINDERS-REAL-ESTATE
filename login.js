@@ -76,7 +76,7 @@ document.getElementById("property-form").addEventListener("submit", (e) => {
     if (propertyImage) reader.readAsDataURL(propertyImage);
 });
 
-// Load Gallery (with Edit and Delete buttons)
+// Load Gallery (Delete buttons)
 function loadGallery() {
     const gallery = document.getElementById("current-properties");
     gallery.innerHTML = ""; // Clear the gallery first to prevent duplicates
@@ -89,7 +89,7 @@ function loadGallery() {
       <div>
         <img src="${property.image}" alt="Property" style="width: 100px; height: 100px; object-fit: cover;">
        
-        <button onclick="editProperty(${index})">Edit</button>
+       
         <button onclick="deleteProperty(${index})">Delete</button>
       </div>
     `;
@@ -101,13 +101,7 @@ function renderProperties() {
 
 
 
-    // Add event listeners for edit and delete buttons
-    document.querySelectorAll(".edit-btn").forEach((button) => {
-        button.addEventListener("click", (e) => {
-            const index = e.target.getAttribute("data-index");
-            editProperty(index);
-        });
-    });
+
 
     document.querySelectorAll(".delete-btn").forEach((button) => {
         button.addEventListener("click", (e) => {
@@ -118,51 +112,7 @@ function renderProperties() {
 }
 
 
-// Edit Property
-function editProperty(index) {
-    const properties = JSON.parse(localStorage.getItem("properties")) || [];
-    const property = properties[index];
 
-    // Populate the form with the current property data
-    const imageInput = document.getElementById("property-image");
-    c
-
-    // Temporarily store the index for later update
-    localStorage.setItem("editingPropertyIndex", index);
-
-    imageInput.value = ""; // Clear current file input
-    descriptionInput.value = property.description; // Set the description
-    showSection("post-property-section");
-
-    // When the user submits the edit form, update the property
-    document.getElementById("property-form").onsubmit = (e) => {
-        e.preventDefault();
-
-        const newDescription = descriptionInput.value.trim();
-        const newImage = imageInput.files[0];
-
-        if (newDescription || newImage) {
-            const reader = new FileReader();
-            reader.onload = () => {
-
-                properties[index].image = newImage ? reader.result : properties[index].image;
-
-                localStorage.setItem("properties", JSON.stringify(properties));
-                alert("Property updated successfully!");
-                loadGallery();
-            };
-
-            if (newImage) reader.readAsDataURL(newImage);
-            else {
-                properties[index].description = newDescription;
-                localStorage.setItem("properties", JSON.stringify(properties));
-                loadGallery();
-            }
-        } else {
-            alert("Please provide a new description or image.");
-        }
-    };
-}
 
 // Delete Property
 function deleteProperty(index) {
