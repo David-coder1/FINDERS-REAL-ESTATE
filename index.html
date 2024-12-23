@@ -92,12 +92,21 @@
             <li><a href="#contact" class="page-scroll">Contact</a></li>
             <li>
               <a href="login.html">
-                <div class="login" style="font-size: 10px">
+                <div class="login">Login</div>
+                <!-- <div class="login" style="font-size: 10px">
                   <div style="margin-bottom: -5px">Sign Up</div>
                   <span style="color: rgb(32, 33, 33)">or</span>
+                </div> -->
+              </a>
+            </li>
+            <li>
+              <a href="signup.html" onclick="showCreateAccount()">
+                <div class="login" id="signup">Sign Up</div>
+                <!-- <div class="login" style="font-size: 10px">
+                  <span style="color: rgb(32, 33, 33)">or</span>
                   <div style="margin-top: -6px">Login</div>
-                </div></a
-              >
+                </div> -->
+              </a>
             </li>
           </ul>
         </div>
@@ -155,13 +164,11 @@
 
     <div id="services">
       <div class="container">
-        <a href="login.html"
-          ><h3 style="margin-top: 60px">Upload Properties Here</h3></a
-        >
-        <div
+        <h3 style="margin-top: 60px">Our Properties</h3>
+        <!-- <div
           id="property-grid"
           class="container featured-properties property-grid"
-        ></div>
+        ></div> -->
 
         <div class="row">
           <div class="col-md-4">
@@ -169,12 +176,12 @@
               <img src="img/services/service-1.jpg" alt=" " />
             </div>
             <div class="service-desc">
-              <h3>Apartment for Sale</h3>
+              <h3>Apartment for Rent</h3>
             </div>
             <div class="property-icon">
-              <div>Bathroom</div>
-              <div>Toilet</div>
-              <div>Parking Space</div>
+              <div>2 Bathrooms</div>
+              <div>4 Toilets</div>
+              <div>3 Parking Spaces</div>
             </div>
             <a
               href="all-properties.html"
@@ -187,7 +194,7 @@
               <img src="img/services/service-2.jpg" alt=" " />
             </div>
             <div class="service-desc">
-              <h3>Apartment for Sale</h3>
+              <h3>Apartment for Rent</h3>
             </div>
             <div class="property-icon">
               <div>Bathroom</div>
@@ -225,7 +232,7 @@
               <img src="img/services/service-4.jpg" alt=" " />
             </div>
             <div class="service-desc">
-              <h3>Apartment for Sale</h3>
+              <h3>Apartment for Rent</h3>
             </div>
             <div class="property-icon">
               <div>Bathroom</div>
@@ -243,7 +250,7 @@
               <img src="img/services/service-5.jpg" alt=" " />
             </div>
             <div class="service-desc">
-              <h3>Apartment for Sale</h3>
+              <h3>Apartment for Rent</h3>
             </div>
             <div class="property-icon">
               <div>Bathroom</div>
@@ -285,12 +292,12 @@
               />
             </div>
             <div class="service-desc">
-              <h3>Apartment for Sale</h3>
+              <h3>Apartment for Rent</h3>
             </div>
             <div class="property-icon">
-              <div>Bathroom</div>
-              <div>Toilet</div>
-              <div>Parking Space</div>
+              <div>2 Bathrooms</div>
+              <div>3 Toilets</div>
+              <div>4 Parking Spaces</div>
             </div>
             <a
               href="all-properties.html"
@@ -329,7 +336,7 @@
               />
             </div>
             <div class="service-desc">
-              <h3>Apartment for Sale</h3>
+              <h3>Apartment for Rent</h3>
             </div>
             <div class="property-icon">
               <div>Bathroom</div>
@@ -560,11 +567,9 @@
                   moment I signed up, I knew I was in good hands. The
                   comprehensive property listings and detailed descriptions
                   helped me find the perfect rental property for my family. The
-                  added feature of virtual tours made it easy to explore
-                  properties without having to visit them in person. The team at
-                  Finders Real Estate was professional, responsive, and truly
-                  cared about helping me find a home that suits my needs. Highly
-                  recommend!"
+                  team at Finders Real Estate was professional, responsive, and
+                  truly cared about helping me find a home that suits my needs.
+                  Highly recommend!"
                 </p>
                 <div class="testimonial-meta">DAVID NWAIFO</div>
               </div>
@@ -676,5 +681,6 @@
     <script type="text/javascript" src="js/jqBootstrapValidation.js"></script>
     <script type="text/javascript" src="js/contact_me.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script src="login.js"></script>
   </body>
 </html>

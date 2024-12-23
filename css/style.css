@@ -113,6 +113,12 @@ hr {
   border-radius: 10px;
   margin-top: -17px;
 }
+
+#menu.navbar-default .navbar-nav #signup {
+  background-color: #1f386e;
+  color: white;
+}
+
 #menu.navbar-default .navbar-nav .login:hover {
   color: #1f386e;
   background-color: #dedede;
